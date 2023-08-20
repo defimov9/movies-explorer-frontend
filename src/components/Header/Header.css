@@ -1,0 +1,51 @@
+.header {
+    padding: 18px 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__logo {
+    height: 38px;
+    width: 38px;
+}
+
+.header__burger {
+    display: none;
+}
+
+.header__home {
+    margin: 0;
+    padding: 0;
+    height: 38px;
+}
+
+@media screen and (max-width: 768px) {
+    .header__burger {
+        display: block;
+        position: fixed;
+        right: 30px;
+        width: 38px;
+        height: 38px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 11;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header {
+        padding: 18px 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header__burger {
+        right: 16px;
+    }
+
+    .header {
+        padding: 18px 14px;
+    }
+}

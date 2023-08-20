@@ -1,0 +1,132 @@
+.profile {
+    background: #202020;
+    margin-top: -74px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.profile__welcome {
+    text-align: center;
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+    margin: 148px 0 0 0;
+}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 123px;
+}
+
+.profile__label {
+    position: relative;
+    display: flex;
+    min-width: 410px;
+    padding: 16px 0;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.profile__input {
+    background-color: transparent;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    text-align: right;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.profile__label:first-of-type {
+    border-bottom: 1px solid #424242;
+    padding-top: 0;
+}
+
+.profile__label:last-of-type {
+    padding: 0;
+    margin-top: 16px;
+}
+
+.profile__data {
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+}
+
+.profile__btns {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: absolute;
+    bottom: 70px;
+}
+
+.profile__btn {
+    color: #FFF;
+    font-size: 13px;
+    line-height: normal;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s linear;
+}
+
+.profile__btn:hover {
+    opacity: 0.7;
+}
+
+.profile__btn_logout {
+    color: #EE3465;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .profile__welcome {
+        margin-top: 310px;
+    }
+
+    .profile__info {
+        margin-top: 96px;
+    }
+
+    .profile__btns {
+        bottom: 269px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .profile__label {
+        min-width: 260px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .profile__welcome {
+        margin-top: 144px;
+    }
+
+    .profile__info {
+        margin-top: 80px;
+    }
+
+    .profile__btns {
+        bottom: 40px;
+    }
+
+    .profile__btn {
+        font-size: 12px;
+    }
+}
