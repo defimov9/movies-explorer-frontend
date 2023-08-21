@@ -98,12 +98,12 @@
         margin-top: 310px;
     }
 
-    .profile__info {
+    .profile__form {
         margin-top: 96px;
     }
 
     .profile__btns {
-        bottom: 269px;
+        margin-top: 210px;
     }
 }
 
@@ -118,12 +118,12 @@
         margin-top: 144px;
     }
 
-    .profile__info {
+    .profile__form {
         margin-top: 80px;
     }
 
     .profile__btns {
-        bottom: 40px;
+        margin-top: 379px;
     }
 
     .profile__btn {
