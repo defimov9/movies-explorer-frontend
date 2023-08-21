@@ -1,6 +1,11 @@
 .techs {
     background: #272727;
     padding: 100px 70px;
+}
+
+.techs__container {
+    max-width: 1280px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -125,9 +125,11 @@ const Movies = () => {
     <>
       <Header loggedIn={true} />
       <main className='movies'>
-        <SearchForm />
-        <MoviesCardList movies={movies} />
-        <button className='movies__btn'>Ещё</button>
+        <div className='movies__container'>
+          <SearchForm />
+          <MoviesCardList movies={movies} />
+          <button className='movies__btn'>Ещё</button>
+        </div>
       </main>
       <Footer />
     </>

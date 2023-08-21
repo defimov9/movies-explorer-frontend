@@ -3,6 +3,11 @@
     background: #202020;
 }
 
+.portfolio__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
 .portfolio__title {
     color: #8B8B8B;
     font-size: 18px;

@@ -89,8 +89,10 @@ const SavedMovies = () => {
     <>
       <Header loggedIn={true} />
       <main className='movies'>
-        <SearchForm />
-        <MoviesCardList movies={movies} />
+        <div className='movies__container'>
+          <SearchForm />
+          <MoviesCardList movies={movies} />
+        </div>
       </main>
       <Footer />
     </>
