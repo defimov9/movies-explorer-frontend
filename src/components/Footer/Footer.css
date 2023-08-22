@@ -6,6 +6,8 @@
 .footer__wrapper {
     max-width: 1280px;
     margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 70px;
 }
 
 .footer__title {
@@ -21,7 +23,8 @@
 .footer__container {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    align-items: center;
+    padding: 18px 0;
 }
 
 .footer__copyright {
@@ -54,6 +57,10 @@
 @media screen and (max-width: 768px) {
     .footer {
         padding: 60px 30px 20px 30px;
+    }
+
+    .footer__wrapper {
+        padding: 0;
     }
 }
 

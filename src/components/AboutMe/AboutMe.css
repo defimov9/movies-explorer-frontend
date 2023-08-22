@@ -1,11 +1,13 @@
 .about-me {
     background: #202020;
-    padding: 110px 70px 104px 70px;
+    padding: 105px 70px 100px 70px;
 }
 
 .about-me__wrapper {
     max-width: 1280px;
     margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 70px;
 }
 
 .about-me__photo {
@@ -65,6 +67,10 @@
 @media screen and (max-width: 768px) {
     .about-me {
         padding: 90px 50px;
+    }
+
+    .about-me__wrapper {
+        padding: 0;
     }
 
     .about-me__name {

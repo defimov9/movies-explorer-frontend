@@ -23,6 +23,7 @@ const Register = () => {
           name='name'
           value={values.name}
           label='Имя'
+          placeholder='Введите ваше имя'
           onChange={handleChange}
         />
         <AuthInput
@@ -30,6 +31,7 @@ const Register = () => {
           name='email'
           value={values.email}
           label='E-mail'
+          placeholder='Введите ваш E-mail'
           onChange={handleChange}
         />
         <AuthInput
@@ -37,11 +39,12 @@ const Register = () => {
           name='password'
           value={values.password}
           label='Пароль'
+          placeholder='Введите пароль'
           onChange={handleChange}
         />
       </AuthForm>
-      <div className='auth__buttons'>
-        <AuthButton text='Войти' />
+      <div className='auth__buttons auth__buttons_register'>
+        <AuthButton text='Зарегестрироваться' />
         <p className='auth__text'>
           Уже зарегистрированы?{' '}
           <Link className='auth__btn' to='/signin'>

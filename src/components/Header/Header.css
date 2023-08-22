@@ -4,11 +4,17 @@
     justify-content: space-between;
     max-width: 1280px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .header__logo {
     height: 38px;
     width: 38px;
+    transition: opacity 0.3s linear;
+}
+
+.header__logo:hover {
+    opacity: 0.8;
 }
 
 .header__burger {

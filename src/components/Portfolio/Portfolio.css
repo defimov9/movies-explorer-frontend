@@ -6,6 +6,8 @@
 .portfolio__container {
     max-width: 1280px;
     margin: 0 auto;
+    padding: 0 70px;
+    box-sizing: border-box;
 }
 
 .portfolio__title {
@@ -55,6 +57,10 @@
 @media screen and (max-width: 768px) {
     .portfolio {
         padding: 0 50px 90px 50px;
+    }
+
+    .portfolio__container {
+        padding: 0;
     }
 
     .portfolio__link {

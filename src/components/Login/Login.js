@@ -22,6 +22,7 @@ const Login = () => {
           name='email'
           value={values.email}
           label='E-mail'
+          placeholder='Введите ваш E-mail'
           onChange={handleChange}
         />
         <AuthInput
@@ -29,6 +30,7 @@ const Login = () => {
           name='password'
           value={values.password}
           label='Пароль'
+          placeholder='Введите пароль'
           onChange={handleChange}
         />
       </AuthForm>

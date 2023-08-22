@@ -1,7 +1,15 @@
 import React from 'react';
 import './AuthInput.css';
 
-const AuthInput = ({ label, type, name, onChange, value, error }) => {
+const AuthInput = ({
+  label,
+  type,
+  name,
+  onChange,
+  value,
+  error,
+  placeholder,
+}) => {
   return (
     <label className='auth-input'>
       {label}
@@ -11,6 +19,7 @@ const AuthInput = ({ label, type, name, onChange, value, error }) => {
         name={name}
         onChange={onChange}
         value={value}
+        placeholder={placeholder}
         required
       />
       <p className='auth-input__error' id={`${name}-error`}>

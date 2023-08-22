@@ -5,11 +5,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     column-gap: 20px;
-    row-gap: 38px;
+    row-gap: 35px;
 }
 
 .movies-card-list {
-    padding: 80px 70px 50px 70px;
+    padding: 80px 70px 60px 70px;
 }
 
 @media screen and (max-width: 768px) {

@@ -15,6 +15,7 @@ const Profile = ({ userName = 'Денис', email = 'defimov9@gmail.com' }) => {
               className='profile__input'
               type='text'
               name='name'
+              placeholder='Имя'
               required
             />
           </label>
@@ -24,6 +25,7 @@ const Profile = ({ userName = 'Денис', email = 'defimov9@gmail.com' }) => {
               className='profile__input'
               type='email'
               name='email'
+              placeholder='E-mail'
               required
             />
           </label>
