@@ -39,7 +39,7 @@ class MainApi {
     });
   }
 
-  createMovie(movieData) {
+  createMovie(movie) {
     return this._request(`${this._baseUrl}/movies`, {
       method: 'POST',
       headers: {
@@ -47,7 +47,17 @@ class MainApi {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
-        ...movieData,
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: this._baseUrl + movie.image.url,
+        trailerLink: movie.trailerLink,
+        thumbnail: this._baseUrl + movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
       }),
     });
   }
@@ -72,6 +82,8 @@ class MainApi {
   }
 }
 
-export const mainApi = new MainApi({
+const mainApi = new MainApi({
   baseUrl: BACKEND_URL,
 });
+
+export default mainApi;

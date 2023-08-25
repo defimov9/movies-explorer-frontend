@@ -2,6 +2,7 @@
     background: #202020;
     padding-bottom: 159px;
     margin-top: -74px;
+    min-height: calc(100vh - 249px);
 }
 
 .movies__container {
@@ -30,6 +31,21 @@
 
 .movies__btn:hover {
     opacity: 0.8;
+}
+
+.movies__error {
+    font-weight: 400;
+    font-size: 26px;
+    line-height: normal;
+    color: #FFF;
+    text-align: center;
+}
+
+@media screen and (max-width: 560px) {
+    .movies__error {
+        font-size: 20px;
+        margin-top: 60px;
+    }
 }
 
 @media screen and (max-width: 320px) {

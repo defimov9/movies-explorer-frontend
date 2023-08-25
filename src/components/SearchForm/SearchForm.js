@@ -1,17 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SearchForm.css';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { useLocation } from 'react-router-dom';
 
-const SearchForm = () => {
+const SearchForm = ({
+  isLoading,
+  handleSearchSubmit,
+  handleIsShortCheckbox,
+  keyWord,
+  isShort,
+  setIsShort,
+}) => {
+  const [emptyInputError, setEmptyInputError] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    setSearchValue(keyWord);
+  }, [keyWord]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchValue) {
+      handleSearchSubmit(searchValue);
+      setEmptyInputError(false);
+    } else {
+      setEmptyInputError(true);
+    }
+  };
+
+  const handleChangeSearch = (e) => {
+    console.log(e.target.value);
+    setSearchValue(e.target.value);
+  };
+
+  const handleChangeCheckbox = () => {
+    setIsShort(!isShort);
+    handleIsShortCheckbox(!isShort);
+  };
+
   return (
     <section className='search'>
-      <form className='search__form' name='search'>
+      <form
+        className='search__form'
+        name='search'
+        onSubmit={handleSubmit}
+        noValidate>
         <div className='search__icon'></div>
         <input
           className='search__input'
           placeholder='Фильм'
           type='text'
+          name='keyWord'
+          value={searchValue}
+          onChange={handleChangeSearch}
+          disabled={isLoading}
           required
         />
+        {emptyInputError ? (
+          <span className='search__error' id='searchFilm-error'>
+            Нужно ввести ключевое слово
+          </span>
+        ) : null}
+
         <button className='search__btn' type='submit'>
           Найти
         </button>
@@ -20,6 +70,8 @@ const SearchForm = () => {
             className='search__checkbox'
             type='checkbox'
             id='short-movies'
+            onChange={handleChangeCheckbox}
+            checked={isShort}
           />
           <span className='search__pseudo'>
             <span className='search__circle' />

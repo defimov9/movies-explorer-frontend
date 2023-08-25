@@ -17,7 +17,7 @@ class MoviesApi {
   }
 
   getMovies() {
-    return this._request(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/beatfilm-movies`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-type': 'application/json',
@@ -26,6 +26,8 @@ class MoviesApi {
   }
 }
 
-export const moviesApi = new MoviesApi({
+const moviesApi = new MoviesApi({
   baseUrl: BEATFILM_URL,
 });
+
+export default moviesApi;
