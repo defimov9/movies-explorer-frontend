@@ -1,4 +1,10 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,10 +18,11 @@ import { useEffect, useState } from 'react';
 import authApi from '../../utils/AuthApi';
 import mainApi from '../../utils/MainApi';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [tooltipSettings, setTooltipSettings] = useState({
     isSuccess: false,
@@ -24,6 +31,20 @@ function App() {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      authApi
+        .checkToken(jwt)
+        .then((res) => {
+          setCurrentUser(res);
+          setLoggedIn(true);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -35,19 +56,6 @@ function App() {
         .catch((err) => console.log(err));
     }
   }, [loggedIn]);
-
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      authApi
-        .checkToken(jwt)
-        .then((res) => {
-          setLoggedIn(true);
-          setCurrentUser(res);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [navigate]);
 
   const handleTooltipError = (err) => {
     setTooltipSettings({
@@ -89,15 +97,26 @@ function App() {
     setIsTooltipOpen(false);
   };
 
+  const handleSignOut = () => {
+    localStorage.clear();
+    setLoggedIn(false);
+    setCurrentUser({});
+    setSavedMovies([]);
+    setIsLoading(false);
+    navigate('/');
+  };
+
   return (
     <CurrentUserContext.Provider
       value={{ savedMovies, setSavedMovies, currentUser, setCurrentUser }}>
       <div className='App'>
         <Routes>
-          <Route path='/' element={<Main loggedIn={loggedIn} />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/movies' element={<Movies />} />
-          <Route path='/saved-movies' element={<SavedMovies />} />
+          <Route
+            path='/signup'
+            element={
+              <Register handleRegister={handleRegister} isLoading={isLoading} />
+            }
+          />
           <Route
             path='/signin'
             element={
@@ -109,11 +128,19 @@ function App() {
             }
           />
           <Route
-            path='/signup'
+            path='/movies'
+            element={<ProtectedRoute component={Movies} loggedIn={loggedIn} />}
+          />
+          <Route path='/saved-movies' element={<SavedMovies />} />{' '}
+          <Route
+            path='/profile'
             element={
-              <Register handleRegister={handleRegister} isLoading={isLoading} />
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Profile handleSignOut={handleSignOut} />
+              </ProtectedRoute>
             }
           />
+          <Route path='/' element={<Main loggedIn={loggedIn} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <InfoTooltip

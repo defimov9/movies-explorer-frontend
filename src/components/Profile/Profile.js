@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../Header/Header';
 import './Profile.css';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-const Profile = ({ userName = 'Денис', email = 'defimov9@gmail.com' }) => {
+const Profile = ({ handleSignOut, loggedIn }) => {
+  const { currentUser } = useContext(CurrentUserContext);
+  console.log();
+  const { name, email } = currentUser.user;
+
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+
   return (
     <>
-      <Header loggedIn={true} />
+      <Header loggedIn={loggedIn} />
       <section className='profile'>
-        <h2 className='profile__welcome'>{`Привет, ${userName}!`}</h2>
+        <h2 className='profile__welcome'>{`Привет, ${name}!`}</h2>
         <form className='profile__form'>
           <label className='profile__label'>
             Имя
@@ -16,6 +24,8 @@ const Profile = ({ userName = 'Денис', email = 'defimov9@gmail.com' }) => {
               type='text'
               name='name'
               placeholder='Имя'
+              value={values.name || name}
+              onChange={handleChange}
               required
             />
           </label>
@@ -26,6 +36,8 @@ const Profile = ({ userName = 'Денис', email = 'defimov9@gmail.com' }) => {
               type='email'
               name='email'
               placeholder='E-mail'
+              value={values.email || email}
+              onChange={handleChange}
               required
             />
           </label>
