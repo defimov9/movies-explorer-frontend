@@ -24,6 +24,21 @@ export function useFormWithValidation() {
     const target = event.target;
     const name = target.name;
     const value = target.value;
+
+    if (name === 'email' && target.validity.patternMismatch) {
+      target.setCustomValidity('Неккоректный формат E-mail');
+    } else {
+      target.setCustomValidity('');
+    }
+
+    if (name === 'name' && target.validity.patternMismatch) {
+      target.setCustomValidity(
+        'Имя должно содержать только латиницу, кириллицу, пробел, дефис'
+      );
+    } else {
+      target.setCustomValidity('');
+    }
+
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });
     setIsValid(target.closest('form').checkValidity());

@@ -13,7 +13,9 @@ class AuthApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return res.json().then((data) => {
+      return Promise.reject(data.message);
+    });
   }
 
   register(password, email, name) {
@@ -24,11 +26,11 @@ class AuthApi {
     });
   }
 
-  login(password, email) {
+  login(email, password) {
     return this._request(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ password, email }),
+      body: JSON.stringify({ email, password }),
     });
   }
 
@@ -43,6 +45,8 @@ class AuthApi {
   }
 }
 
-export const authApi = new AuthApi({
+const authApi = new AuthApi({
   baseUrl: BACKEND_URL,
 });
+
+export default authApi;
