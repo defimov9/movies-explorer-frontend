@@ -1,24 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './MoviesCard.css';
 import { BEATFILM_URL } from '../../utils/constants';
 import { useLocation } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 
-const MoviesCard = ({ movie, onCardLike, onCardDelete }) => {
+const MoviesCard = ({ movie }) => {
   const { pathname } = useLocation();
   const { savedMovies, setSavedMovies } = useContext(CurrentUserContext);
 
-  const isSaved = savedMovies
-    ? savedMovies.some((m) => m.movieId === movie.id)
-    : false;
+  const [isSaved, setIsSaved] = useState(false);
 
-  const buttonClass =
-    pathname === '/saved-movies'
-      ? 'movies-card__btn_delete'
-      : isSaved
-      ? 'movies-card__btn_active'
-      : '';
+  useEffect(() => {
+    setIsSaved(savedMovies.some((m) => m.movieId === movie.id));
+  }, [savedMovies, movie.id, isSaved]);
 
   const formatDuration = (minutes) => {
     const min = minutes % 60;
@@ -36,17 +31,20 @@ const MoviesCard = ({ movie, onCardLike, onCardDelete }) => {
   };
 
   const deleteMovie = () => {
+    const savedMovieId = savedMovies.find(
+      (item) => item.movieId === movie.id
+    )._id;
     mainApi
-      .deleteMovie(movie.id)
+      .deleteMovie(savedMovieId)
       .then(() => {
-        setSavedMovies((state) => state.filter((m) => m.movieId === movie.id));
+        setSavedMovies((state) => state.filter((m) => m.movieId !== movie.id));
+        setIsSaved(false);
       })
       .catch((err) => console.log(err));
   };
 
   const handleLikeClick = () => {
-    const isMovieSaved = savedMovies.some((m) => m.movieId === movie.id);
-    isMovieSaved ? deleteMovie(movie) : saveMovie(movie);
+    isSaved ? deleteMovie(movie) : saveMovie(movie);
   };
 
   const handleDeleteClick = () => {
@@ -70,7 +68,13 @@ const MoviesCard = ({ movie, onCardLike, onCardDelete }) => {
       <div className='movies-card__container'>
         <p className='movies-card__title'>{movie.nameRU}</p>
         <button
-          className={`movies-card__btn ${buttonClass}`}
+          className={`movies-card__btn ${
+            pathname === '/saved-movies'
+              ? 'movies-card__btn_delete'
+              : isSaved
+              ? 'movies-card__btn_active'
+              : ''
+          }`}
           onClick={
             pathname === '/saved-movies' ? handleDeleteClick : handleLikeClick
           }
