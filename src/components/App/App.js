@@ -1,10 +1,4 @@
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -31,7 +25,6 @@ function App() {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -43,6 +36,8 @@ function App() {
           setLoggedIn(true);
         })
         .catch((err) => console.log(err));
+    } else {
+      setLoggedIn(false);
     }
   }, [navigate]);
 
@@ -51,7 +46,7 @@ function App() {
       Promise.all([mainApi.getUserData(), mainApi.getSavedMovies()])
         .then(([userData, userSavedMovies]) => {
           setCurrentUser(userData);
-          setSavedMovies(userSavedMovies.movies);
+          setSavedMovies(userSavedMovies.movies.reverse());
         })
         .catch((err) => console.log(err));
     }
@@ -86,6 +81,7 @@ function App() {
       .register(password, email, name)
       .then(() => {
         handleLogin(email, password);
+        navigate('/movies');
       })
       .catch((err) => {
         handleTooltipError(err);
@@ -114,7 +110,14 @@ function App() {
           <Route
             path='/signup'
             element={
-              <Register handleRegister={handleRegister} isLoading={isLoading} />
+              loggedIn ? (
+                <Navigate to='/movies' />
+              ) : (
+                <Register
+                  handleRegister={handleRegister}
+                  isLoading={isLoading}
+                />
+              )
             }
           />
           <Route
@@ -129,14 +132,25 @@ function App() {
           />
           <Route
             path='/movies'
-            element={<ProtectedRoute component={Movies} loggedIn={loggedIn} />}
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Movies />
+              </ProtectedRoute>
+            }
           />
-          <Route path='/saved-movies' element={<SavedMovies />} />{' '}
+          <Route
+            path='/saved-movies'
+            element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <SavedMovies />
+              </ProtectedRoute>
+            }
+          />{' '}
           <Route
             path='/profile'
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Profile handleSignOut={handleSignOut} />
+                <Profile handleSignOut={handleSignOut} loggedIn={loggedIn} />
               </ProtectedRoute>
             }
           />
