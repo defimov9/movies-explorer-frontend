@@ -97,7 +97,7 @@ const Profile = ({ handleSignOut, loggedIn }) => {
               (values.name === initialValues.name &&
                 values.email === initialValues.email)
             }>
-            {!isLoading ? 'Редактировать' : 'Сохраняем'}
+            {!isLoading ? 'Редактировать' : 'Сохраняем...'}
             <p className='profile__error profile__error_result'>{}</p>
           </button>
           <button

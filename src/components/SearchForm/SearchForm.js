@@ -17,7 +17,6 @@ const SearchForm = ({
   }, [keyWord]);
 
   const handleSubmit = (e) => {
-    console.log(searchValue);
     e.preventDefault();
     if (searchValue) {
       handleSearchSubmit(searchValue);

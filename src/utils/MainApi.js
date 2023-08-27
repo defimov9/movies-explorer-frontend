@@ -1,4 +1,4 @@
-import { BACKEND_URL } from './constants';
+import { BACKEND_URL, BEATFILM_URL } from './constants';
 
 class MainApi {
   constructor({ baseUrl }) {
@@ -13,7 +13,9 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return res.json().then((data) => {
+      return Promise.reject(data.message);
+    });
   }
 
   getUserData() {
@@ -52,7 +54,7 @@ class MainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: this._baseUrl + movie.image.url,
+        image: BEATFILM_URL + movie.image.url,
         trailerLink: movie.trailerLink,
         thumbnail: this._baseUrl + movie.image.formats.thumbnail.url,
         movieId: movie.id,
