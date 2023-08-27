@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './SearchForm.css';
-import { useFormWithValidation } from '../../hooks/useFormWithValidation';
-import { useLocation } from 'react-router-dom';
 
 const SearchForm = ({
   isLoading,
@@ -19,6 +17,7 @@ const SearchForm = ({
   }, [keyWord]);
 
   const handleSubmit = (e) => {
+    console.log(searchValue);
     e.preventDefault();
     if (searchValue) {
       handleSearchSubmit(searchValue);
@@ -29,7 +28,6 @@ const SearchForm = ({
   };
 
   const handleChangeSearch = (e) => {
-    console.log(e.target.value);
     setSearchValue(e.target.value);
   };
 

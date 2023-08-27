@@ -9,11 +9,19 @@ const MoviesCard = ({ movie }) => {
   const { pathname } = useLocation();
   const { savedMovies, setSavedMovies } = useContext(CurrentUserContext);
 
-  const [isSaved, setIsSaved] = useState(false);
+  const [savedStatus, setSavedStatus] = useState({});
 
   useEffect(() => {
-    setIsSaved(savedMovies.some((m) => m.movieId === movie.id));
-  }, [savedMovies, movie.id, isSaved]);
+    const savedMovie = savedMovies.find(
+      (m) => m.movieId === movie.id || m._id === movie._id
+    );
+
+    setSavedStatus(
+      savedMovie
+        ? { isSaved: true, _id: savedMovie._id }
+        : { isSaved: false, _id: '' }
+    );
+  }, [savedMovies, movie.id, movie._id]);
 
   const formatDuration = (minutes) => {
     const min = minutes % 60;
@@ -31,20 +39,19 @@ const MoviesCard = ({ movie }) => {
   };
 
   const deleteMovie = () => {
-    const savedMovieId = savedMovies.find(
-      (item) => item.movieId === movie.id
-    )._id;
     mainApi
-      .deleteMovie(savedMovieId)
+      .deleteMovie(savedStatus._id)
       .then(() => {
-        setSavedMovies((state) => state.filter((m) => m.movieId !== movie.id));
-        setIsSaved(false);
+        setSavedMovies((state) =>
+          state.filter((m) => m._id !== savedStatus._id)
+        );
+        setSavedStatus({});
       })
       .catch((err) => console.log(err));
   };
 
   const handleLikeClick = () => {
-    isSaved ? deleteMovie(movie) : saveMovie(movie);
+    savedStatus.isSaved ? deleteMovie(movie) : saveMovie(movie);
   };
 
   const handleDeleteClick = () => {
@@ -71,7 +78,7 @@ const MoviesCard = ({ movie }) => {
           className={`movies-card__btn ${
             pathname === '/saved-movies'
               ? 'movies-card__btn_delete'
-              : isSaved
+              : savedStatus.isSaved
               ? 'movies-card__btn_active'
               : ''
           }`}
