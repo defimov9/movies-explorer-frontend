@@ -12,6 +12,7 @@ const Profile = ({ handleSignOut, loggedIn }) => {
     useFormWithValidation();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [resultError, setResultError] = useState('');
 
   const initialValues = {
     name: currentUser.user.name,
@@ -24,9 +25,10 @@ const Profile = ({ handleSignOut, loggedIn }) => {
       .updateUserInfo(values)
       .then((updatedData) => {
         setCurrentUser(updatedData);
+        setResultError('');
       })
       .catch((err) => {
-        console.log(err);
+        setResultError(err);
       })
       .finally(() => setIsLoading(false));
   };
@@ -81,12 +83,10 @@ const Profile = ({ handleSignOut, loggedIn }) => {
               pattern='.+@.+\..+$'
               disabled={isLoading}
             />
-            <p className='profile__error profile__error_email'>
-              {errors.email}
-            </p>
           </label>
         </form>
         <div className='profile__btns'>
+          <p className='profile__error profile__error_result'>{resultError}</p>
           <button
             className='profile__btn'
             type='submit'
@@ -98,6 +98,7 @@ const Profile = ({ handleSignOut, loggedIn }) => {
                 values.email === initialValues.email)
             }>
             {!isLoading ? 'Редактировать' : 'Сохраняем'}
+            <p className='profile__error profile__error_result'>{}</p>
           </button>
           <button
             className='profile__btn profile__btn_logout'
