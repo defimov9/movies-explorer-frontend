@@ -1,0 +1,43 @@
+.movies {
+    background: #202020;
+    padding-bottom: 159px;
+    margin-top: -74px;
+}
+
+.movies__container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.movies__btn {
+    width: 320px;
+    height: 36px;
+    border-radius: 6px;
+    background: #2F2F2F;
+    display: flex;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    transition: opacity 0.2s linear;
+}
+
+.movies__btn:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 320px) {
+    .movies__btn {
+        width: 240px;
+    }
+
+    .movies {
+        padding-bottom: 99px;
+    }
+}
