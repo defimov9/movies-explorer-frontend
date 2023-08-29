@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import Preloader from '../Preloader/Preloader';
 
 const ProtectedRoute = ({ loggedIn, children }) => {
   if (loggedIn === null) {
