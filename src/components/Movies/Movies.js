@@ -45,9 +45,9 @@ const Movies = () => {
   }, []);
 
   useEffect(() => {
-    if (windowWidth >= 1280) {
+    if (windowWidth >= 1280 || windowWidth >= 768) {
       setMoviesCount(16);
-    } else if (windowWidth <= 768) {
+    } else if (windowWidth <= 768 && windowWidth > 480) {
       setMoviesCount(8);
     } else {
       setMoviesCount(5);
@@ -82,10 +82,12 @@ const Movies = () => {
     getFilteredMovies(word, isShort);
   };
 
-  const handleIsShortCheckbox = (isChecked) => {
+  const handleIsShortCheckbox = (isChecked, word) => {
     localStorage.setItem('isShort', isChecked);
+    localStorage.setItem('keyWord', word);
     setIsShort(isChecked);
-    getFilteredMovies(keyWord, isChecked);
+    setKeyWord(word);
+    getFilteredMovies(word, isChecked);
   };
 
   const handleResize = () => setWindowWidth(window.innerWidth);

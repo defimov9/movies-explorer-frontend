@@ -32,7 +32,7 @@ const SearchForm = ({
 
   const handleChangeCheckbox = () => {
     setIsShort(!isShort);
-    handleIsShortCheckbox(!isShort);
+    handleIsShortCheckbox(!isShort, searchValue);
   };
 
   return (

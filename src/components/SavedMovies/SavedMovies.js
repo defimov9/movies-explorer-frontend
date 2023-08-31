@@ -21,9 +21,10 @@ const SavedMovies = () => {
     getFilteredMovies(word, isShort);
   };
 
-  const handleIsShortCheckbox = (isChecked) => {
+  const handleIsShortCheckbox = (isChecked, word) => {
     setIsShort(isChecked);
-    getFilteredMovies(keyWord, isChecked);
+    setKeyWord(word);
+    getFilteredMovies(word, isChecked);
   };
 
   useEffect(() => {
