@@ -45,9 +45,9 @@ const Movies = () => {
   }, []);
 
   useEffect(() => {
-    if (windowWidth >= 1280 || windowWidth >= 768) {
+    if (windowWidth >= 1280) {
       setMoviesCount(16);
-    } else if (windowWidth <= 768 && windowWidth > 480) {
+    } else if (windowWidth > 480 && windowWidth < 1280) {
       setMoviesCount(8);
     } else {
       setMoviesCount(5);
