@@ -8,6 +8,7 @@
 }
 
 .search__form {
+    position: relative;
     display: flex;
     align-items: center;
     border-radius: 9px;
@@ -37,7 +38,7 @@
     font-weight: 400;
     line-height: 20px;
     width: 100%;
-    outline-offset: 7px;
+    outline-offset: 3px;
 }
 
 .search__btn {
@@ -106,6 +107,15 @@
     background-color: #3ddc84;
 }
 
+.search__error {
+    position: absolute;
+    font-size: 13px;
+    line-height: 18px;
+    color: #EE3465;
+    bottom: 5px;
+    left: 62px;
+}
+
 @media screen and (max-width: 768px) {
     .search {
         padding: 154px 30px 109px 30px;
@@ -128,7 +138,7 @@
 @media screen and (max-width: 620px) {
     .search__label {
         position: absolute;
-        top: 271px;
+        bottom: -75px;
         left: 50%;
         transform: translateX(-50%);
         padding: 0;

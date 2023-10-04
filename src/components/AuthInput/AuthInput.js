@@ -9,6 +9,10 @@ const AuthInput = ({
   value,
   error,
   placeholder,
+  maxLength,
+  minLength,
+  isLoading,
+  pattern,
 }) => {
   return (
     <label className='auth-input'>
@@ -21,9 +25,13 @@ const AuthInput = ({
         value={value}
         placeholder={placeholder}
         required
+        minLength={minLength || null}
+        maxLength={maxLength || null}
+        disabled={isLoading}
+        pattern={pattern || null}
       />
       <p className='auth-input__error' id={`${name}-error`}>
-        {error ? error : ''}
+        {error || ''}
       </p>
     </label>
   );

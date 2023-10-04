@@ -4,38 +4,50 @@ import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
 import AuthButton from '../AuthButton/AuthButton';
 import { Link } from 'react-router-dom';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-const Login = () => {
-  const [values, setValues] = useState({
-    email: '',
-    password: '',
-  });
+const Login = ({ handleLogin, isLoading }) => {
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-  const handleChange = (e) =>
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(values.email, values.password);
+  };
 
   return (
     <AuthPage title='Рады видеть!'>
-      <AuthForm>
+      <AuthForm onSubmit={handleSubmit} name='login'>
         <AuthInput
           type='email'
           name='email'
-          value={values.email}
+          value={values.email || ''}
           label='E-mail'
           placeholder='Введите ваш E-mail'
           onChange={handleChange}
+          isLoading={isLoading}
+          error={errors.email}
+          pattern='.+@.+\..+$'
         />
         <AuthInput
           type='password'
           name='password'
-          value={values.password}
+          value={values.password || ''}
           label='Пароль'
           placeholder='Введите пароль'
           onChange={handleChange}
+          isLoading={isLoading}
+          error={errors.password}
+          minLength='6'
+          maxLength='30'
         />
       </AuthForm>
       <div className='auth__buttons'>
-        <AuthButton text='Войти' />
+        <AuthButton
+          text='Войти'
+          formName='login'
+          isValid={isValid}
+          isLoading={isLoading}
+        />
         <p className='auth__text'>
           Ещё не зарегистрированы?{' '}
           <Link className='auth__btn' to='/signup'>
